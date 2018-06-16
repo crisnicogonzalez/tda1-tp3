@@ -11,7 +11,7 @@ class Board(Observable):
         self.rows = rows
     
     def insert_item_in_position(self, item, col, row):
-        if col >= self.columns or row >= self.rows :
+        if col >= self.columns or row >= self.rows:
             raise JuegoException("Posicion ("+str(col)+","+str(row)+") fuera del tablero.")
         self.positions[col][row] = item
         item.set_pos_x(col)
