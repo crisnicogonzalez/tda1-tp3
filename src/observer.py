@@ -9,6 +9,7 @@ class Observable:
         for observer in self.__observers:
             observer.notify(self, *args, **kwargs)
 
+
 class Observer:
     
     def __init__(self, observable):
