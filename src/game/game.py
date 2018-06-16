@@ -6,7 +6,8 @@ from threading import *
 
 class Game(Observer):
     
-    def __init__(self, numbers_of_ships, number_of_mortars, configuration, rows):
+    def __init__(self, numbers_of_ships, number_of_shooters, configuration, player_a, player_b):
+        # Configuration es la tabla que se lee del archivo
         super().__init__()
         self.numbers_of_ships = numbers_of_ships
         self.board = Board(numbers_of_ships, rows)

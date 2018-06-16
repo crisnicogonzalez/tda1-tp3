@@ -23,7 +23,7 @@ class Board(Observable):
         self.positions[col][row] = None
         
     def get_item_from_position(self, col, row):
-        if col >= self.columns or row >= self.rows :
+        if col >= self.columns or row >= self.rows:
             raise JuegoException("Posicion ("+str(col)+","+str(row)+") fuera del tablero.")
         return self.positions[col][row]
     

@@ -1,5 +1,5 @@
 class Player:
-    def __init__(self, name, strategy):
+    def __init__(self, name, strategy=None):
         self.strategy = strategy
         self.name = name
 
