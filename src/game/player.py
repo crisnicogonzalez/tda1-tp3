@@ -1,9 +1,10 @@
 class Player:
-    def __init__(self,strategy):
+    def __init__(self, name, strategy):
         self.strategy = strategy
+        self.name = name
 
     def get_next_play(self):
         return self.strategy
 
     def play(self):
-        ##Something
+        print('Jugar %s', self.name)

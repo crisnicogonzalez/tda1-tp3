@@ -1,4 +1,4 @@
-from .juegoException import JuegoException
+from src.exception.juegoException import JuegoException
 from .observer import Observable
 
 
