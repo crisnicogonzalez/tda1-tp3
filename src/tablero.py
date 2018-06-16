@@ -25,5 +25,5 @@ class Tablero(Observer):
         return self.posiciones[col][row]
     
     def notify(self,barco,xInicial,yInicial,xFinal,yFinal):
-        self.insertar(barco,xFinal,yFinal)
+        self.insertar(barco,xFinal%self.columnas,yFinal%self.filas)
         self.remover(xInicial, yInicial)

@@ -19,10 +19,15 @@ class Barco(Observable):
     def setPosY(self,pos):
         self.posY=pos
         
-        
     def getVida(self):
         return self.vida
     
+    def setVida(self,vida):
+        self.vida = vida
+    
+    def isMuerto(self):
+        return self.vida <= 0
+        
     def avanzar(self):
         xInicial = self.posX
         yInicial = self.posY
