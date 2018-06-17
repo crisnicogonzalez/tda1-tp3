@@ -5,7 +5,8 @@ class DinamicStrategy():
         self.known_states = {}
         self.damage_table = damage_table
         self.shooters = shooters
-    
+        self.game_manager = game
+
     def step(self,state):
         priority_list = []
         if state in self.known_states:
@@ -29,4 +30,5 @@ class DinamicStrategy():
             if self.game.ship_of_position_is_alive(ship_position):
                 self.game.attack_to_position(ship_position)
 
-            
+    def set_game_manager(self, game_manager):
+        self.game_manager = game_manager
