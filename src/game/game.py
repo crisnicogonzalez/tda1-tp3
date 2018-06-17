@@ -4,21 +4,24 @@ from multiprocessing import Queue
 
 
 class Game:
-    def __init__(self, numbers_of_ships, numbers_of_columns ,number_of_shooters, player_a, player_b,life_points,damage_table):
+    def __init__(self, ships, numbers_of_columns, damage_table, player_a, player_b):
         # Configuration es la tabla que se lee del archivo
         super().__init__()
-        self.board = Board(numbers_of_ships,numbers_of_columns)
+        self.board = Board(len(ships), numbers_of_columns)
         self.number_of_turn = 0
-        self.ships_with_life = create_ships(life_points)
+        self.ships_with_life = ships
         self.queue = None
-        self.__init_players_queue(player_a,player_b)
+        self.__init_players_queue(player_a, player_b)
         self.damage_table = damage_table
         self.number_of_plays = 0
         self.numbers_of_columns = numbers_of_columns
+        self.number_of_dead_ships = 0
+        self.number_of_ships = len(ships)
 
-    def __init_players_queue(self,player_a,player_b):
+    def __init_players_queue(self, player_a, player_b):
         self.queue = Queue()
-        self.queue.put(player_a,player_b)
+        self.queue.put(player_a)
+        self.queue.put(player_b)
 
     def __locate_ships(self):
         i = 0
@@ -43,7 +46,7 @@ class Game:
 
     def play(self):
         self.number_of_plays = 0
-        while self.number_of_dead_ships != self.numbers_of_ships:
+        while self.number_of_dead_ships != self.number_of_ships:
             current_player = self.queue.get()
             current_player.play()
             self.queue.put(current_player)

@@ -7,5 +7,5 @@ class MoveShipsStrategy:
     def execute(self):
         print('execute')
 
-    def set_game(self, game_manager):
+    def set_game_manager(self, game_manager):
         self.game_manager = game_manager

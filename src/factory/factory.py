@@ -16,5 +16,5 @@ def create_board_configuration_from_file(file_name):
 
 
 def create_ships(life_points):
-    return map(lambda life_point: Ship(life_point), life_points)
+    return list(map(lambda life_point: Ship(life_point), life_points))
 

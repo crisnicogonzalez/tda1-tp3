@@ -17,6 +17,6 @@ print('number of ships', number_of_ships)
 
 player_a = Player('player_a', strategy=move_strategy)
 player_b = Player('player_b', strategy=dinamic_strategy)
-game = Game(number_of_shoots, configuration_board, player_a, player_b)
+game = Game(ships, len(damage_table),damage_table ,player_a, player_b)
 game.play()
 game.get_result()

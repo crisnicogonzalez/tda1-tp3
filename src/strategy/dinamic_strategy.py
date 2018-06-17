@@ -16,10 +16,10 @@ class DinamicStrategy():
             self.known_states[state] = priority_list
         return priority_list
 
-    def order_by_max_damage(self,list):
+    def order_by_max_damage(self, list):
         return list
     
-    def pop_first_from(self,list):
+    def pop_first_from(self, list):
         return list[0]
 
     def execute(self):
