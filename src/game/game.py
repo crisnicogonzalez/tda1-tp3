@@ -7,7 +7,7 @@ from multiprocessing import Queue
 
 class Game:
     
-    def __init__(self, numbers_of_ships, numbers_of_columns ,number_of_shooters, player_a, player_b,life_points):
+    def __init__(self, numbers_of_ships, numbers_of_columns ,number_of_shooters, player_a, player_b,life_points,damage_table):
         # Configuration es la tabla que se lee del archivo
         super().__init__()
         self.board = Board(numbers_of_ships,numbers_of_columns)
@@ -15,6 +15,8 @@ class Game:
         self.ships_with_life = create_ships(life_points)
         self.queue = None
         self.__init_players_queue(player_a,player_b)
+        self.damage_table = damage_table
+        self.curret_colum = 0
 
     def __init_players_queue(self,player_a,player_b):
         self.queue = Queue()
@@ -49,3 +51,14 @@ class Game:
 
 
     def move_ships(self):
+
+    def get_current_column(self):
+        return self.curret_colum    
+
+    def ship_of_position_is_alive(self,row):
+        current_ship = self.board.get_item_from_position(self.curret_colum,row)
+        return !current_ship.is_dead()
+
+    def attack_to_position(self,row):
+        current_ship = self.board.get_item_from_position(column,row)
+        current_ship.attack_with_points(damage_table[column][row])

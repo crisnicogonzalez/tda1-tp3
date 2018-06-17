@@ -24,9 +24,6 @@ class Ship(Observable):
     def get_life_points(self):
         return self.life_points
     
-    def set_life_points(self, vida):
-        self.life_points = vida
-    
     def is_dead(self):
         return self.life_points <= 0
         
@@ -35,3 +32,7 @@ class Ship(Observable):
         initial_y = self.posY
         self.posX = initial_x + 1
         self.notify_observers(initial_x, initial_y, initial_x+1, initial_y)
+
+    def attack_with_points(self, points):
+        self.life_points -= points
+

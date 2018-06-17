@@ -8,4 +8,4 @@ class Player:
         return self.strategy
 
     def play(self):
-        print('Jugar %s', self.name)
+        self.strategy.execute()
