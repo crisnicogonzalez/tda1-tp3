@@ -1,4 +1,4 @@
-from src.utils.quicksort import quicksort
+from src.part_one.utils.quicksort import quicksort
 import logging
 
 log_info = {'class': 'DynamicStrategy'}

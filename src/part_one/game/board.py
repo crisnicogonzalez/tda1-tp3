@@ -1,4 +1,3 @@
-from src.exception.juegoException import JuegoException
 import logging
 
 log_info = {'class': 'Board'}

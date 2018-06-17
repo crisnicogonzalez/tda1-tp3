@@ -1,9 +1,9 @@
-from src.game.game import Game
-from src.game.player import Player
-from src.factory.factory import *
-from src.strategy.dinamic_strategy import DynamicStrategy
-from src.strategy.player_a_strategy import MoveShipsStrategy
-from src.strategy.greedy_strategy import GreedyStrategy
+from src.part_one.game.game import Game
+from src.part_one.game.player import Player
+from src.part_one.factory.factory import *
+from src.part_one.strategy.dinamic_strategy import DynamicStrategy
+from src.part_one.strategy.player_a_strategy import MoveShipsStrategy
+from src.part_one.strategy.greedy_strategy import GreedyStrategy
 
 import logging
 

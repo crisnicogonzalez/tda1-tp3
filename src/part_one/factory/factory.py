@@ -1,8 +1,8 @@
-from src.game.ship import Ship
+from src.part_one.game.ship import Ship
 
 
 def create_board_configuration_from_file(file_name):
-    file = open('src/config/'+file_name, 'r')
+    file = open('src/part_one/config/'+file_name, 'r')
     configuration = []
     ships_live_points = []
     damage_board = []
