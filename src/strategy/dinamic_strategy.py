@@ -1,5 +1,7 @@
+from src.utils.quicksort import quicksort
 
-class DinamicStrategy():
+
+class DynamicStrategy:
     def __init__(self, game=None, damage_table=None, shooters=None):
         self.game = game
         self.known_states = {}
@@ -7,28 +9,30 @@ class DinamicStrategy():
         self.shooters = shooters
         self.game_manager = game
 
-    def step(self,state):
-        priority_list = []
-        if state in self.known_states:
-            return self.known_states[state]
+    def step(self, column):
+        if column in self.known_states:
+            return self.known_states[column]
         else:
-            priority_list = self.order_by_max_damage(self.damage_table[state])
-            self.known_states[state] = priority_list
+            priority_list = quicksort(self.damage_table[column])
+            self.known_states[column] = priority_list
         return priority_list
-
-    def order_by_max_damage(self, list):
-        return list
-    
-    def pop_first_from(self, list):
-        return list[0]
 
     def execute(self):
         index = self.game.get_current_column()
         priority_list = self.step(index)
         for i in range(self.shooters):
-            ship_position = priority_list.pop()
-            if self.game.ship_of_position_is_alive(ship_position):
-                self.game.attack_to_position(ship_position)
+            index_priority = 0
+            ship_position = priority_list[index_priority]
+            while not self.attack(ship_position):
+                index_priority += 1
+            self.known_states[index] = priority_list[index_priority:]
+
+    def attack(self, ship_position):
+        if self.game.ship_of_position_is_alive(ship_position):
+            self.game.attack_to_position(ship_position)
+            return True
+        else:
+            return False
 
     def set_game_manager(self, game_manager):
         self.game_manager = game_manager

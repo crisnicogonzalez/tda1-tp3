@@ -1,11 +1,8 @@
 
 class MoveShipsStrategy:
 
-    def __init__(self):
-        self.game_manager = None
+    def __init__(self, game_manager=None):
+        self.game_manager = game_manager
 
     def execute(self):
-        print('execute')
-
-    def set_game_manager(self, game_manager):
-        self.game_manager = game_manager
+        self.game_manager.move_ships()

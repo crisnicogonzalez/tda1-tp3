@@ -1,27 +1,28 @@
-from src.factory.factory import create_ships
 from .board import Board
-from multiprocessing import Queue
+from queue import Queue
+import logging
+
+FORMAT = "%(class)-8s     %(message)s"
+logging.basicConfig(format=FORMAT, level=logging.INFO)
+log_info = {'class': 'Game'}
 
 
 class Game:
-    def __init__(self, ships, numbers_of_columns, damage_table, player_a, player_b):
-        # Configuration es la tabla que se lee del archivo
+    def __init__(self, ships, numbers_of_columns, damage_table):
+        logging.info('Creando juego', extra=log_info)
         super().__init__()
         self.board = Board(len(ships), numbers_of_columns)
         self.number_of_turn = 0
         self.ships_with_life = ships
-        self.queue = None
-        self.__init_players_queue(player_a, player_b)
+        self.queue = Queue()
         self.damage_table = damage_table
         self.number_of_plays = 0
         self.numbers_of_columns = numbers_of_columns
         self.number_of_dead_ships = 0
         self.number_of_ships = len(ships)
 
-    def __init_players_queue(self, player_a, player_b):
-        self.queue = Queue()
-        self.queue.put(player_a)
-        self.queue.put(player_b)
+    def add_player(self, player):
+        self.queue.put(player)
 
     def __locate_ships(self):
         i = 0
@@ -46,7 +47,7 @@ class Game:
 
     def play(self):
         self.number_of_plays = 0
-        while self.number_of_dead_ships != self.number_of_ships:
+        while self.number_of_dead_ships < self.number_of_ships:
             current_player = self.queue.get()
             current_player.play()
             self.queue.put(current_player)
@@ -56,15 +57,18 @@ class Game:
         return self.result
 
     def move_ships(self):
+        logging.debug('Moviendo los barcos', extra=log_info)
         print('move ships')
 
     def get_current_column(self):
-        return self.number_of_plays / 2 % self.numbers_of_columns
+        return (self.number_of_plays / 2) % self.numbers_of_columns
 
-    def ship_of_position_is_alive(self,row):
-        current_ship = self.board.get_item_from_position(self.get_current_column(),row)
+    def ship_of_position_is_alive(self, row):
+        current_ship = self.board.get_item_from_position(self.get_current_column(), row)
         return not current_ship.is_dead()
 
-    def attack_to_position(self,row):
-        current_ship = self.board.get_item_from_position(column,row)
+    def attack_to_position(self, row):
+        current_ship = self.board.get_item_from_position(column, row)
         current_ship.attack_with_points(damage_table[column][row])
+        if current_ship.is_dead():
+            self.number_of_dead_ships += 1
