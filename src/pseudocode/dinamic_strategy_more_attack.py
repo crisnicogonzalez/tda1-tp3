@@ -1,6 +1,8 @@
 /*
  * Receives: Index of Damage Table representing a state in the game and the Damage Table
  * Returns: Priority list of attacks for that specific state of the game
+ * 
+ * KnownStates is a global variable known by the Game, that contains all priority list previusly calculated.
  */
 
 def step(state, damage_table):
