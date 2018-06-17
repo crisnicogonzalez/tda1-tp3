@@ -1,23 +1,24 @@
+from src.factory.factory import create_ships
 from .ship import Ship
 from .board import Board
 from .observer import Observer
 from threading import *
+from multiprocessing import Queue
 
-
-class Game(Observer):
+class Game:
     
-    def __init__(self, numbers_of_ships, number_of_shooters, configuration, player_a, player_b):
+    def __init__(self, numbers_of_ships, numbers_of_columns ,number_of_shooters, player_a, player_b,life_points):
         # Configuration es la tabla que se lee del archivo
         super().__init__()
-        self.numbers_of_ships = numbers_of_ships
-        self.board = Board(numbers_of_ships, rows)
-        self.ships = [Ship(100) for _ in range(numbers_of_ships)]
-        self.__locate_ships()
-        self.number_of_dead_ships = 0
-        self.number_of_shifts = 0
-        self.current_player = None
-        self.player_a = None
-        self.player_b = None
+        self.board = Board(numbers_of_ships,numbers_of_columns)
+        self.number_of_turn = 0
+        self.ships_with_life = create_ships(life_points)
+        self.queue = None
+        self.__init_players_queue(player_a,player_b)
+
+    def __init_players_queue(self,player_a,player_b):
+        self.queue = Queue()
+        self.queue.put(player_a,player_b)
 
     def __locate_ships(self):
         i = 0
@@ -37,7 +38,14 @@ class Game(Observer):
             self.current_player = self.player_b
         self.number_of_shifts += 1
 
-    def init_game(self):
+    def play(self):
         while self.number_of_dead_ships != self.numbers_of_ships:
-            jugada = self.current_player.getJugada()
-            jugada.ejecutar()
+            current_player = self.queue.get()
+            current_player.play()
+            self.queue.put(current_player)
+
+    def get_result(self):
+        return self.result
+
+
+    def move_ships(self):

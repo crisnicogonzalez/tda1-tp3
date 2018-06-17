@@ -9,3 +9,5 @@ number_of_ships = 2
 number_of_shoots = 3
 configuration_board = create_board_configuration_from_file('basic')
 game = Game(number_of_shoots, configuration_board, player_a, player_b)
+game.play()
+game.get_result()
