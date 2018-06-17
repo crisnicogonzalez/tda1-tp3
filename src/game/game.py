@@ -56,6 +56,7 @@ class Game:
         return self.result
 
     def move_ships(self):
+        print('move ships')
 
     def get_current_column(self):
         return self.number_of_plays / 2 % self.numbers_of_columns
