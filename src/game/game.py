@@ -16,7 +16,8 @@ class Game:
         self.queue = None
         self.__init_players_queue(player_a,player_b)
         self.damage_table = damage_table
-        self.curret_colum = 0
+        self.number_of_plays = 0
+        self.numbers_of_columns = numbers_of_columns
 
     def __init_players_queue(self,player_a,player_b):
         self.queue = Queue()
@@ -40,24 +41,28 @@ class Game:
             self.current_player = self.player_b
         self.number_of_shifts += 1
 
+    def increment_number_of_dead_ships(self):
+        self.number_of_dead_ships += 1
+
     def play(self):
+        self.number_of_plays = 0
         while self.number_of_dead_ships != self.numbers_of_ships:
             current_player = self.queue.get()
             current_player.play()
             self.queue.put(current_player)
+            self.number_of_plays += 1
 
     def get_result(self):
         return self.result
 
-
     def move_ships(self):
 
     def get_current_column(self):
-        return self.curret_colum    
+        return self.number_of_plays / 2 % self.numbers_of_columns
 
     def ship_of_position_is_alive(self,row):
-        current_ship = self.board.get_item_from_position(self.curret_colum,row)
-        return !current_ship.is_dead()
+        current_ship = self.board.get_item_from_position(self.get_current_column(),row)
+        return not current_ship.is_dead()
 
     def attack_to_position(self,row):
         current_ship = self.board.get_item_from_position(column,row)
