@@ -2,12 +2,17 @@ from src.game.ship import Ship
 
 
 def create_board_configuration_from_file(file_name):
-    file = open(file_name, 'r')
+    file = open('src/config/'+file_name, 'r')
     configuration = []
+    ships_live_points = []
+    damage_board = []
     for line in file:
         splited_line = line.split(' ')
-        configuration.append(map(lambda item: int(item), splited_line))
-    return configuration
+        maped_list = list(map(lambda item: int(item), splited_line))
+        ships_live_points.append(maped_list[0])
+        damage_board.append(maped_list[1:])
+        configuration.append(list(map(lambda item: int(item), splited_line)))
+    return ships_live_points, damage_board
 
 
 def create_ships(life_points):

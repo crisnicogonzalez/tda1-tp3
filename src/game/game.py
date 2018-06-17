@@ -1,12 +1,9 @@
 from src.factory.factory import create_ships
-from .ship import Ship
 from .board import Board
-from .observer import Observer
-from threading import *
 from multiprocessing import Queue
 
+
 class Game:
-    
     def __init__(self, numbers_of_ships, numbers_of_columns ,number_of_shooters, player_a, player_b,life_points,damage_table):
         # Configuration es la tabla que se lee del archivo
         super().__init__()

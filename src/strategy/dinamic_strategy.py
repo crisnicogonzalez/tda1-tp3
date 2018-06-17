@@ -1,6 +1,6 @@
 
 class DinamicStrategy():
-    def __init__(self,game,damage_table,shooters):
+    def __init__(self, game=None, damage_table=None, shooters=None):
         self.game = game
         self.known_states = {}
         self.damage_table = damage_table
