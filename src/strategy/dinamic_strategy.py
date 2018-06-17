@@ -38,12 +38,15 @@ class DynamicStrategy:
         priority_list = self.step(current_column)
         logging.debug('priority list {}'.format(priority_list), extra=log_info)
         index_priority = 0
+        ship_position = None
         for i in range(self.shooters):
             logging.info('Realizando el ataque con la lanzadera {}'.format(i),extra=log_info)
-            ship_position = priority_list[index_priority]
-            while not self.attack(ship_position):
-                index_priority += 1
+            if index_priority < len(priority_list):
                 ship_position = priority_list[index_priority]
+            while index_priority < len(priority_list) and not self.attack(ship_position) :
+                index_priority += 1
+                if index_priority < len(priority_list):
+                    ship_position = priority_list[index_priority]
             self.known_states[current_column] = priority_list[index_priority:]
 
     def attack(self, ship_position):

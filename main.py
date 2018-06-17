@@ -37,9 +37,9 @@ game_two = Game(ships[:], len(damage_table[0]), damage_table)
 
 dynamic_strategy = DynamicStrategy(game_one, damage_table, number_of_shooters)
 move_strategy_one = MoveShipsStrategy(game_one)
-# play_game(move_strategy_one, dynamic_strategy, game_one)
+play_game(move_strategy_one, dynamic_strategy, game_one)
 
 
 move_strategy_two = MoveShipsStrategy(game_two)
 greedy_strategy = GreedyStrategy(game_two, number_of_shooters, damage_table, ships)
-play_game(move_strategy_two, greedy_strategy, game_two)
+#play_game(move_strategy_two, greedy_strategy, game_two)

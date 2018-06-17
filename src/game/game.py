@@ -63,7 +63,7 @@ class Game:
     def ship_of_position_is_alive(self, row):
         logging.info('Viendo si el barco en la fila {} tiene vida'.format(row), extra=log_info)
         current_ship = self.board.get_item_from_position(row, self.get_current_column())
-        return not current_ship.is_dead()
+        return current_ship is not None and not current_ship.is_dead()
 
     def attack_to_position(self, row):
         column = self.get_current_column()
