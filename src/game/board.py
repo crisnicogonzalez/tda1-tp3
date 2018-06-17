@@ -20,8 +20,8 @@ class Board:
 
     def insert_item_in_position(self, item, row, col):
         self.positions[row][col % self.columns] = item
-        item.set_pos_x(col % self.columns)
-        item.set_pos_y(row)
+        item.set_column(col % self.columns)
+        item.set_row(row)
     
     def remove_from_position(self, col, row):
         if col >= self.columns or row >= self.rows:

@@ -9,16 +9,16 @@ class Ship(Observable):
         self.posY = None
         self.life_points = initial_life_points
         
-    def get_pos_x(self):
+    def get_column(self):
         return self.posX
     
-    def set_pos_x(self, pos):
+    def set_column(self, pos):
         self.posX = pos
         
-    def get_pos_y(self):
+    def get_row(self):
         return self.posY
     
-    def set_pos_y(self, pos):
+    def set_row(self, pos):
         self.posY = pos
         
     def get_life_points(self):

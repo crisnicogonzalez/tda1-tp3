@@ -4,6 +4,7 @@ import logging
 
 log_info = {'class': 'Game'}
 
+
 class Game:
     def __init__(self, ships, numbers_of_columns, damage_table):
         logging.info('Creando juego', extra=log_info)
@@ -46,8 +47,8 @@ class Game:
         logging.info('Moviendo los barcos', extra=log_info)
         for ship in self.alive_ships:
             if not ship.is_dead():
-                column = ship.get_pos_x()
-                row = ship.get_pos_y()
+                column = ship.get_column()
+                row = ship.get_row()
                 self.board.remove_from_position(row, column)
                 self.board.insert_item_in_position(ship, row, column+1)
                 logging.info('El barco tiene {} de vida y tiene un ataque potencial de {}'.format(ship.get_life_points(), self.damage_table[row][column+1]),extra=log_info)
