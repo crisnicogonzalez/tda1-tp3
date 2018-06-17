@@ -1,8 +1,6 @@
 from src.utils.quicksort import quicksort
 import logging
 
-FORMAT = "%(class)-8s     %(message)s"
-logging.basicConfig(format=FORMAT, level=logging.INFO)
 log_info = {'class': 'DynamicStrategy'}
 
 
@@ -41,6 +39,7 @@ class DynamicStrategy:
         logging.debug('priority list {}'.format(priority_list), extra=log_info)
         index_priority = 0
         for i in range(self.shooters):
+            logging.info('Realizando el ataque con la lanzadera {}'.format(i),extra=log_info)
             ship_position = priority_list[index_priority]
             while not self.attack(ship_position):
                 index_priority += 1
@@ -48,7 +47,7 @@ class DynamicStrategy:
             self.known_states[current_column] = priority_list[index_priority:]
 
     def attack(self, ship_position):
-        logging.debug('Iniciando ataque', extra=log_info)
+        logging.info('Iniciando ataque', extra=log_info)
         if self.game.ship_of_position_is_alive(ship_position):
             self.game.attack_to_position(ship_position)
             return True

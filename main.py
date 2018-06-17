@@ -3,6 +3,12 @@ from src.game.player import Player
 from src.factory.factory import *
 from src.strategy.dinamic_strategy import DynamicStrategy
 from src.strategy.player_a_strategy import MoveShipsStrategy
+import logging
+
+FORMAT = "%(class)-8s     %(message)s"
+logging.basicConfig(format=FORMAT)
+logging.getLogger().setLevel(logging.INFO)
+log_info = {'class': 'Main'}
 
 
 number_of_shooters = 3
@@ -21,4 +27,3 @@ player_b = Player('player_b', strategy=dynamic_strategy)
 game.add_player(player_b)
 game.add_player(player_a)
 game.play()
-game.get_result()
