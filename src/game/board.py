@@ -1,13 +1,10 @@
 from src.exception.juegoException import JuegoException
 import logging
 
-FORMAT = "%(class)-8s     %(message)s"
-logging.basicConfig(format=FORMAT, level=logging.DEBUG)
 log_info = {'class': 'Board'}
 
-
 class Board:
-    def __init__(self, cols, rows):
+    def __init__(self, rows, cols):
         super().__init__()
         self.positions = [[None for i in range(cols)] for j in range(rows)]
         self.columns = cols
@@ -19,19 +16,17 @@ class Board:
         logging.debug('\n{}'.format(matrix), extra=log_info)
 
     def insert_item_in_position(self, item, row, col):
+        logging.debug('cantidad de columnas={} col {}=nueva posicion={} row={}'.format(self.columns,col,col % self.columns,row), extra=log_info)
+        logging.debug('self.positions[{}][{}] '.format(row, col%self.columns), extra=log_info)
         self.positions[row][col % self.columns] = item
         item.set_column(col % self.columns)
         item.set_row(row)
     
-    def remove_from_position(self, col, row):
-        if col >= self.columns or row >= self.rows:
-            raise JuegoException("Posicion ("+str(col)+","+str(row)+") fuera del tablero.")
-        self.positions[col][row] = None
+    def remove_from_position(self, row, col):
+        self.positions[row][col%self.columns] = None
         
-    def get_item_from_position(self, col, row):
-        if col >= self.columns or row >= self.rows:
-            raise JuegoException("Posicion ("+str(col)+","+str(row)+") fuera del tablero.")
-        return self.positions[row][col]
+    def get_item_from_position(self, row, col):
+        return self.positions[row][col%self.columns]
     
     def notify(self, ship, initial_x, initial_y, final_x, final_y):
         self.insert_item_in_position(ship, final_x % self.columns, final_y % self.rows)

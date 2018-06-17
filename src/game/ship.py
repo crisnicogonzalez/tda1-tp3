@@ -1,8 +1,8 @@
 from .observer import Observable
+import logging
 
 
 class Ship(Observable):
-    
     def __init__(self, initial_life_points):
         super().__init__()
         self.posX = None
@@ -10,9 +10,11 @@ class Ship(Observable):
         self.life_points = initial_life_points
         
     def get_column(self):
+        # logging.info('Get column {}'.format(self.posX), extra={'class': 'Ship'})
         return self.posX
     
     def set_column(self, pos):
+        # logging.info('Set column {}'.format(pos), extra={'class': 'Ship'})
         self.posX = pos
         
     def get_row(self):

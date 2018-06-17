@@ -51,7 +51,8 @@ class Game:
                 row = ship.get_row()
                 self.board.remove_from_position(row, column)
                 self.board.insert_item_in_position(ship, row, column+1)
-                logging.info('El barco tiene {} de vida y tiene un ataque potencial de {}'.format(ship.get_life_points(), self.damage_table[row][column+1]),extra=log_info)
+                logging.debug('Row={} y column+1={}'.format(row,column+1),extra=log_info)
+                logging.info('El barco tiene {} de vida y tiene un ataque potencial de {}'.format(ship.get_life_points(), self.damage_table[row][(column+1) % self.numbers_of_columns]),extra=log_info)
         # self.board.print()
 
     def get_current_column(self):
@@ -61,13 +62,14 @@ class Game:
 
     def ship_of_position_is_alive(self, row):
         logging.info('Viendo si el barco en la fila {} tiene vida'.format(row), extra=log_info)
-        current_ship = self.board.get_item_from_position(self.get_current_column(), row)
+        current_ship = self.board.get_item_from_position(row, self.get_current_column())
         return not current_ship.is_dead()
 
     def attack_to_position(self, row):
-        logging.info('Ataque en la posicion {}'.format(row), extra=log_info)
         column = self.get_current_column()
-        current_ship = self.board.get_item_from_position(column, row)
-        current_ship.attack_with_points(self.damage_table[column][row])
+        current_ship = self.board.get_item_from_position(row, column)
+        logging.info('Ataca a la posicion {} con vida {}'.format(row, current_ship.get_life_points()), extra=log_info)
+        current_ship.attack_with_points(self.damage_table[row][column])
         if current_ship.is_dead():
             self.number_of_dead_ships += 1
+        logging.info('Se Ataco el barco y quedo con {}'.format(current_ship.get_life_points()), extra=log_info)
