@@ -4,6 +4,10 @@ from src.part_one.factory.factory import *
 from src.part_one.strategy.dinamic_strategy import DynamicStrategy
 from src.part_one.strategy.player_a_strategy import MoveShipsStrategy
 from src.part_one.strategy.greedy_strategy import GreedyStrategy
+from src.part_two.import_network import *
+from src.part_two.ford_fulkerson import *
+import copy
+import numpy as np
 
 import logging
 
@@ -43,3 +47,14 @@ play_game(move_strategy_one, dynamic_strategy, game_one)
 move_strategy_two = MoveShipsStrategy(game_two)
 greedy_strategy = GreedyStrategy(game_two, number_of_shooters, damage_table, ships)
 #play_game(move_strategy_two, greedy_strategy, game_two)
+print("Parte Dos")
+#PART TWO
+graph = file_to_network_graph('secret_network.txt')
+print("Maximo flujo sin sabotaje: ",FordFulkerson(0, 1, len(graph), np.array(graph))[0])
+for i in range(len(graph)):
+    for j in range(len(graph)):
+        if(graph[i][j] > 0):
+            value = graph[i][j]
+            graph[i][j] = 0
+            print("Maximo flujo saboteando el eje (",i,",",j,"):",FordFulkerson(0, 1, len(graph), np.array(graph))[0])
+            graph[i][j] = value

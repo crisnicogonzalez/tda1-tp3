@@ -1,3 +1,5 @@
+import numpy as np
+
 def FordFulkerson(source, sink, rows, residual_graph):
     parent = [-1] * rows
     max_flow = 0
@@ -42,7 +44,7 @@ def get_max_flows(flow_graph):
 
 
 def get_paths_to_protect(graph, source, sink):
-    max_flow, residual_graph = FordFulkerson(source, sink, len(graph), graph[:][:])
+    max_flow, residual_graph = FordFulkerson(source, sink, len(graph), np.array(graph))
     flow_graph = graph - residual_graph
     max_flow_sortered = get_max_flows(flow_graph)
     return max_flow_sortered[:2]
