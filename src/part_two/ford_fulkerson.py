@@ -2,7 +2,7 @@ def FordFulkerson(source, sink, rows, residual_graph):
     parent = [-1] * rows
     max_flow = 0
 
-    while get_BFS(source, sink, parent):
+    while get_BFS(source, sink, parent,rows,residual_graph):
         path_flow = float("Inf")
         s = sink
         while s != source:
